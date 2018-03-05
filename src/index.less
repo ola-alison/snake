@@ -1,0 +1,18 @@
+.size(@a, @b) {
+  width: @a;
+  height: @b;
+}
+
+#board {
+  .size(50px, 50px);
+  border: 1px solid #000;
+  position: relative;
+}
+
+#snake {
+  .size(5px, 5px);
+  background-color: red;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
