@@ -1,18 +1,35 @@
-.size(@a, @b) {
-  width: @a;
-  height: @b;
+@colorBtn: #21a589;
+@colorSnake: #f45c35;
+
+#input-board-size,
+#input-snake-size {
+  width: 30px;
+}
+
+#btn-start {
+  color: #fff;
+  background-color: @colorBtn;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin: 5px;
+  cursor: pointer;
+  display: inline-block;
 }
 
 #board {
-  .size(50px, 50px);
+  width: 0;
+  height: 0;
   border: 1px solid #000;
   position: relative;
+  display: none;
 }
 
 #snake {
-  .size(5px, 5px);
-  background-color: red;
+  width: 0;
+  height: 0;
+  background-color: @colorSnake;
   position: absolute;
   top: 0;
   left: 0;
+  display: none;
 }

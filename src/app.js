@@ -1,15 +1,33 @@
 const board = document.getElementById("board");
 const snake = document.getElementById("snake");
-
-let initx = snake.getBoundingClientRect().left;
-let inity = snake.getBoundingClientRect().top;
+const btnStart = document.getElementById("btn-start");
+let boardSize, snakeSize;
 
 let x = 0;
 let y = 0;
-let newl, newr, newu, newd;
-let maxWidth = board.clientWidth;
-let maxHeight = board.clientHeight;
 
+btnStart.onclick = function setSizes() {
+  boardSize = parseInt(document.getElementById("input-board-size").value);
+  snakeSize = parseInt(document.getElementById("input-snake-size").value);
+  if (isNaN(boardSize) || isNaN(snakeSize)) {
+    boardSize = 100;
+    snakeSize = 5;
+  }
+
+  board.style.display = `block`;
+  board.style.width = `${boardSize}px`;
+  board.style.height = `${boardSize}px`;
+  
+  snake.style.display = `block`;
+  snake.style.width = `${snakeSize}px`;
+  snake.style.height = `${snakeSize}px`;
+
+}
+
+
+const play = () => {
+
+}
 
 document.onkeydown = function(e) {
   switch (e.keyCode) {
@@ -17,48 +35,48 @@ document.onkeydown = function(e) {
       console.log('left');
 
       if (x > 0) {
-        newl = x--;
+        x = x - 1 * snakeSize;
       }
       else {
-        newl = x;
+        x;
       }
-      snake.style.left =`${newl}px`;
+      snake.style.left =`${x}px`;
       break;
 
 
     case 39:
       console.log('right');
-      if (x < maxWidth-5) {
-        newr = x++;
+      if (x < boardSize-1*snakeSize) {
+        x = x + 1 * snakeSize;
       }
       else {
-        newr = x;
+        x;
       }
-      snake.style.left = `${newr}px`;
+      snake.style.left = `${x}px`;
       break;
 
 
     case 38:
       console.log('up');
       if (y > 0) {
-        newu = y--;
+        y = y - 1 * snakeSize;
       }
       else {
-        newu = y;
+        y;
       }
-      snake.style.top = `${newu}px`;
+      snake.style.top = `${y}px`;
       break;
 
-      
+
     case 40:
       console.log('down');
-      if (y < maxHeight-5) {
-        newd = y++;
+      if (y < boardSize-1*snakeSize) {
+          y = y + 1 * snakeSize;
       }
       else {
-        newd = y;
+        y;
       }
-      snake.style.top = `${newd}px`;
+      snake.style.top = `${y}px`;
       break;
   }
 };
