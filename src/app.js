@@ -1,9 +1,9 @@
 const board = document.getElementById("board");
 const snake = document.getElementById("snake");
 const btnStart = document.getElementById("btn-start");
-let userInput, moveThrough, boardSize, snakeSize, food;
-let x, foodx = 0;
-let y, foody = 0;
+let userInput, moveThrough, boardSize, snakeSize, food ,foodx, foody;
+let x = 0;
+let y = 0;
 
 
 let createFood = () => {
