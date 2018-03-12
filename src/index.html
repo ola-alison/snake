@@ -6,9 +6,21 @@
 </head>
 <body>
 
-  <label>board size: <input type="text" id="input-board-size" name="board-size"/> </label>
+  <label>
+    pick size:
+    <select id="input-board-size" name="board-size">
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+    </select>
+  </label>
   <br/>
-  <label>snake size: <input type="text" id="input-snake-size" name="snake-size"/> </label>
+  <label>
+    move through walls: <input type="checkbox" id="move-through">yes
+  </label>
   <br/>
 
   <div id="btn-start">Start game</div>
