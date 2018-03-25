@@ -1,17 +1,39 @@
 const board = document.getElementById("board");
-const snake = document.getElementById("snake");
 const btnStart = document.getElementById("btn-start");
-let userInput, moveThrough, boardSize, snakeSize, food ,foodx, foody;
+let userInput, moveThrough, boardSize, snake, snakeSize, food ,foodx, foody;
 let x = 0;
 let y = 0;
 
 
+let createSnake = () => {
+  snake = document.createElement("div");
+  snake.setAttribute("id","snake");
+  board.appendChild(snake).innerHTML = "";
+
+  snake.style.display = `block`;
+  snake.style.width = `${snakeSize}px`;
+  snake.style.height = `${snakeSize}px`;
+  snake.style.top = `0`;
+  snake.style.left = `0`;
+}
+
+
 let createFood = () => {
   food = document.createElement("div");
+  food.setAttribute("id","food");
   board.appendChild(food).innerHTML = "";
 
-  foodx = Math.floor( Math.random() * 100 );
-  foody = Math.floor( Math.random() * 100 );
+  let roundFood = (a) => {
+    if (a < boardSize) {
+      return Math.round(a / snakeSize) * snakeSize;
+    }
+    else {
+      return boardSize - snakeSize;
+    }
+  }
+
+  foodx = roundFood(Math.floor( Math.random() * 100 ) * userInput);
+  foody = roundFood(Math.floor( Math.random() * 100 ) * userInput);
 
   food.style.display = `block`;
   food.style.width = `${snakeSize}px`;
@@ -21,6 +43,7 @@ let createFood = () => {
   food.style.top = `${foody}px`;
   food.style.left = `${foodx}px`;
 }
+
 
 btnStart.onclick = function setSizes() {
   userInput = parseInt(document.getElementById("input-board-size").value);
@@ -32,14 +55,11 @@ btnStart.onclick = function setSizes() {
   board.style.width = `${boardSize}px`;
   board.style.height = `${boardSize}px`;
 
-  snake.style.display = `block`;
-  snake.style.width = `${snakeSize}px`;
-  snake.style.height = `${snakeSize}px`;
-  snake.style.top = `0`;
-  snake.style.left = `0`;
-
+  board.innerHTML = '';
+  createSnake();
   createFood();
 }
+
 
 document.onkeydown = function(e) {
   switch (e.keyCode) {
