@@ -1,9 +1,10 @@
 const board = document.getElementById("board");
 const btnStart = document.getElementById("btn-start");
-let userInput, moveThrough, boardSize, snake, snakeSize, food ,foodx, foody;
+let userInput, moveThrough, boardSize, snake, snakeSize, food, foodx, foody;
 let x = 0;
 let y = 0;
 
+let speed = 1;
 
 let createSnake = () => {
   snake = document.createElement("div");
@@ -23,17 +24,8 @@ let createFood = () => {
   food.setAttribute("id","food");
   board.appendChild(food).innerHTML = "";
 
-  let roundFood = (a) => {
-    if (a < boardSize) {
-      return Math.round(a / snakeSize) * snakeSize;
-    }
-    else {
-      return boardSize - snakeSize;
-    }
-  }
-
-  foodx = roundFood(Math.floor( Math.random() * 100 ) * userInput);
-  foody = roundFood(Math.floor( Math.random() * 100 ) * userInput);
+  foodx = Math.floor( Math.random() * boardSize / snakeSize) * snakeSize;
+  foody = Math.floor( Math.random() * boardSize / snakeSize) * snakeSize;
 
   food.style.display = `block`;
   food.style.width = `${snakeSize}px`;
@@ -58,12 +50,66 @@ btnStart.onclick = function setSizes() {
   board.innerHTML = '';
   createSnake();
   createFood();
+
+
+  moveSnake();
 }
 
 
-document.onkeydown = function(e) {
-  switch (e.keyCode) {
-    case 37:
+
+let moveSnake = () => {
+
+  let moveRight = true;
+  let moveLeft, moveDown, moveUp = false;
+
+  document.onkeydown = function(e) {
+    switch (e.keyCode) {
+      case 37:
+        moveLeft = true;
+        moveRight, moveDown, moveUp = false;
+        console.log("<")
+        break;
+
+      case 39:
+        moveRight = true;
+        moveLeft, moveDown, moveUp = false;
+        console.log(">")
+        break;
+
+      case 38:
+        moveUp = true;
+        moveRight, moveLeft, moveDown = false;
+        console.log("^")
+        break;
+
+      case 40:
+        moveDown = true;
+        moveRight, moveLeft, moveUp = false;
+        console.log("V")
+        break;
+    }
+  };
+
+  setInterval(function() {
+
+    if (moveRight == true ) {
+      console.log('right');
+      if (x < boardSize - snakeSize) {
+        x = x + snakeSize;
+      }
+      else {
+        if (moveThrough == true) {
+          x = 0;
+        }
+        else {
+          x;
+        }
+      }
+
+      snake.style.left = `${x}px`;
+    }
+
+    else if (moveLeft == true) {
       console.log('left');
 
       if (x > 0) {
@@ -79,46 +125,9 @@ document.onkeydown = function(e) {
       }
 
       snake.style.left =`${x}px`;
-      break;
+    }
 
-
-    case 39:
-      console.log('right');
-      if (x < boardSize - snakeSize) {
-        x = x + snakeSize;
-      }
-      else {
-        if (moveThrough == true) {
-          x = 0;
-        }
-        else {
-          x;
-        }
-      }
-
-      snake.style.left = `${x}px`;
-      break;
-
-
-    case 38:
-      console.log('up');
-      if (y > 0) {
-        y = y - snakeSize;
-      }
-      else {
-        if (moveThrough == true) {
-          y = boardSize - snakeSize;
-        }
-        else {
-          y;
-        }
-      }
-
-      snake.style.top = `${y}px`;
-      break;
-
-
-    case 40:
+    else if (moveDown == true) {
       console.log('down');
       if (y < boardSize - snakeSize) {
         y = y + snakeSize;
@@ -133,9 +142,25 @@ document.onkeydown = function(e) {
       }
 
       snake.style.top = `${y}px`;
-      break;
-  }
+    }
+
+    else {
+      if (y > 0) {
+        y = y - snakeSize;
+      }
+      else {
+        if (moveThrough == true) {
+          y = boardSize - snakeSize;
+        }
+        else {
+          y;
+        }
+      }
+
+      snake.style.top = `${y}px`;
+    }
+
+  }, 500);
 
 
-
-};
+}
